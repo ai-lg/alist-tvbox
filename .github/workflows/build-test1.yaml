@@ -96,7 +96,7 @@ jobs:
         with:
           context: .
           file: Dockerfile-native-host
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/xiaoya-tvbox:native-host
           cache-from: type=gha
@@ -114,15 +114,4 @@ jobs:
           source: "data/app_version,scripts/update_new.sh,scripts/update_xiaoya.sh,scripts/update_hostmode.sh,scripts/update_native.sh,scripts/update_native_host.sh"
           strip_components: 1
           target: /var/www/alist/
-      - name: send telegram message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.CHANNEL_ID }}
-          token: ${{ secrets.BOT_TOKEN }}
-          message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
-
-            Repository: ${{ github.repository }}
-
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+          
