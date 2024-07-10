@@ -6,9 +6,9 @@ COPY atv-cli ./
 
 RUN go build
 
-FROM haroldli/alist-base:latest
+FROM ailg666/alist-base:latest
 
-LABEL MAINTAINER="Har01d"
+LABEL MAINTAINER="ailg"
 
 ENV MEM_OPT="-Xmx512M" ALIST_PORT=5344 INSTALL=xiaoya
 
