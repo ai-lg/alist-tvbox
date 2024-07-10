@@ -75,8 +75,7 @@ jobs:
         run: |
           [ -d data ] || mkdir data
           export TZ=Asia/Shanghai
-          echo $((($(date +%Y) - 2023) * 366 + $(date +%j | sed 's/^0*//'))).$(date +%H%M) > data/version
-          echo "${{ github.event.head_commit.message }}" >> data/version
+          echo "GB.$(date +%y%m%d.%H%M)" > data/version
           cp data/version data/app_version
           cat data/version
       - name: Build docker and push
@@ -146,28 +145,3 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/xiaoya-tvbox:native-host
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: Send version file
-        env:
-          ssh_host: ${{ secrets.SSH_HOST }}
-        if: ${{ env.ssh_host != '' }}
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: 22
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "data/app_version,scripts/update_new.sh,scripts/update_xiaoya.sh,scripts/update_hostmode.sh,scripts/update_native.sh,scripts/update_native_host.sh"
-          strip_components: 1
-          target: /var/www/alist/
-      - name: send telegram message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.CHANNEL_ID }}
-          token: ${{ secrets.BOT_TOKEN }}
-          message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
-
-            Repository: ${{ github.repository }}
-
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
