@@ -1,10 +1,10 @@
 ARG TAG=latest
 
-FROM haroldli/java:17 as corretto-jdk
+FROM ailg666/java:17 as corretto-jdk
 
 FROM haroldli/alist:${TAG}
 
-LABEL MAINTAINER="Har01d"
+LABEL MAINTAINER="ailg"
 
 ENV JAVA_HOME=/jre
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
