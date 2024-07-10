@@ -29,6 +29,6 @@ RUN apk add --no-cache binutils && \
 
 FROM alpine:latest
 
-LABEL MAINTAINER="Har01d"
+LABEL MAINTAINER="ailg"
 
 COPY --from=corretto-jdk /jre /jre
