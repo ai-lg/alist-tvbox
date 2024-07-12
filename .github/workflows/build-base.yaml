@@ -53,3 +53,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: TAG=hostmode
+      - name: Set date tag
+          id: date
+          run: echo "::set-output name=tag::$(date +'%y%m%d')"
+      - name: Build date_ver docker and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile-base
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alist-base:${{ steps.date.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: TAG=hostmode
