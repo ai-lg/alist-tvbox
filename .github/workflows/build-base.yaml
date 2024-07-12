@@ -54,8 +54,8 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: TAG=hostmode
       - name: Set date tag
-          id: date
-          run: echo "::set-output name=tag::$(date +'%y%m%d')"
+        id: date
+        run: echo "::set-output name=tag::$(date +'%y%m%d')"
       - name: Build date_ver docker and push
         uses: docker/build-push-action@v4
         with:
