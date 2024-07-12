@@ -108,15 +108,16 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/alist-tvbox:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Set date tag
+          id: date
+          run: echo "::set-output name=tag::$(date +'%y%m%d')"
       - name: Build date_ver docker and push
-        env:
-          DATE_TAG: $(date +"%y%m%d")
         uses: docker/build-push-action@v4
         with:
           context: .
           file: Dockerfile-host
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alist-tvbox:${DATE_TAG}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alist-tvbox:${{ steps.date.outputs.tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
