@@ -2,7 +2,7 @@ ARG TAG=latest
 
 FROM ailg666/java:17 as corretto-jdk
 
-FROM haroldli/alist:${TAG}
+FROM ailg666/alist:${TAG}
 
 LABEL MAINTAINER="ailg"
 
