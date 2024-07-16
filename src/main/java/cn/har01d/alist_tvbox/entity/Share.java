@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 @Entity
 public class Share {
     @Id
