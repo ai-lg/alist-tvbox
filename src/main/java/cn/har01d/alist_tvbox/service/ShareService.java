@@ -386,6 +386,7 @@ public class ShareService {
             PikPakAccount account2 = pikPakAccountRepository.getFirstByMasterTrue().orElse(new PikPakAccount());
             for (Share share : list) {
                 try {
+                    int result;  // 定义result变量
                     if (share.getType() == null || share.getType() == 0) {
                         log.info("share.getType() = " + share.getType());  // 输出share.getType()的值
                         List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
