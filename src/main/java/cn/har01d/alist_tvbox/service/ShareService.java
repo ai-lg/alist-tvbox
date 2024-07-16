@@ -597,15 +597,14 @@ public class ShareService {
 
             int result = 0;
             if (share.getType() == null || share.getType() == 0) {
-                try {
-                    List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-                    String folderId = "";  // 默认值
-                    if (!lines.isEmpty()) {
-                        folderId = lines.get(0);
-                    }
-                    String driverType = Files.exists(Paths.get("/data/ali2115.txt")) ? "AliyundriveShare2Pan115" : "AliyundriveShare2Open";
-                    String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'%s',30,'work','{\"RefreshToken\":\"\",\"RefreshTokenOpen\":\"\",\"TempTransferFolderID\":\"%s\",\"share_id\":\"%s\",\"share_pwd\":\"%s\",\"root_folder_id\":\"%s\",\"order_by\":\"name\",\"order_direction\":\"ASC\",\"oauth_token_url\":\"\",\"client_id\":\"\",\"client_secret\":\"\"}','','2023-06-15 12:00:00+00:00',1,'name','ASC','',0,'302_redirect','',0);";
-                    result = Utils.executeUpdate(String.format(sql, share.getId(), getMountPath(share), driverType, folderId, share.getShareId(), share.getPassword(), share.getFolderId()));
+                List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
+                String folderId = "";  // 默认值
+                if (!lines.isEmpty()) {
+                    folderId = lines.get(0);
+                }
+                String driverType = Files.exists(Paths.get("/data/ali2115.txt")) ? "AliyundriveShare2Pan115" : "AliyundriveShare2Open";
+                String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'%s',30,'work','{\"RefreshToken\":\"\",\"RefreshTokenOpen\":\"\",\"TempTransferFolderID\":\"%s\",\"share_id\":\"%s\",\"share_pwd\":\"%s\",\"root_folder_id\":\"%s\",\"order_by\":\"name\",\"order_direction\":\"ASC\",\"oauth_token_url\":\"\",\"client_id\":\"\",\"client_secret\":\"\"}','','2023-06-15 12:00:00+00:00',1,'name','ASC','',0,'302_redirect','',0);";
+                result = Utils.executeUpdate(String.format(sql, share.getId(), getMountPath(share), driverType, folderId, share.getShareId(), share.getPassword(), share.getFolderId()));
             } else if (share.getType() == 1) {
                 PikPakAccount account = pikPakAccountRepository.getFirstByMasterTrue().orElseThrow(BadRequestException::new);
                 String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'PikPakShare',30,'work','{\"root_folder_id\":\"%s\",\"username\":\"%s\",\"password\":\"%s\",\"share_id\":\"%s\",\"share_pwd\":\"%s\"}','','2023-06-15 12:00:00+00:00',1,'name','ASC','',0,'302_redirect','',0);";
