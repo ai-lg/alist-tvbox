@@ -798,18 +798,14 @@ public class ShareService {
             share.setId(7000);
             share.setShareId("cdqCsAWD9wC");
             share.setPassword("6666");
-            List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines.isEmpty()) {
-                share.setFolderId(lines.get(0));  // 将folderId的值设置到Share对象中
+            List<String> lines1 = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
+            if (!lines1.isEmpty()) {
+                share.setFolderId(lines1.get(0));  // 将folderId的值设置到Share对象中
             } else {
                 share.setFolderId("635151fc53641440ad95492c8174c57584c56f68");
             }
             share.setPath("/\uD83C\uDE34我的阿里分享/Tacit0924");
             shares.add(shareRepository.save(share));
-            List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines.isEmpty()) {
-                folderId = lines.get(0);
-            }
         } catch (Exception e) {
             log.warn("", e);
         }
@@ -819,18 +815,14 @@ public class ShareService {
             share.setType(0);
             share.setId(7001);
             share.setShareId("mxAfB6eRgY4");
-            List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines.isEmpty()) {
-                share.setFolderId(lines.get(0));  // 将folderId的值设置到Share对象中
+            List<String> lines2 = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
+            if (!lines2.isEmpty()) {
+                share.setFolderId(lines2.get(0));  // 将folderId的值设置到Share对象中
             } else {
                 share.setFolderId("63833bb670c164d4eeb14aa09c62ee770d9112ba");
             }
             share.setPath("/\uD83C\uDE34我的阿里分享/近期更新");
             shares.add(shareRepository.save(share));
-            List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines.isEmpty()) {
-                folderId = lines.get(0);
-            }
         } catch (Exception e) {
             log.warn("", e);
         }
@@ -840,9 +832,9 @@ public class ShareService {
             share.setType(0);
             share.setId(7002);
             share.setShareId("4ydLxf7VgH7");
-            List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines.isEmpty()) {
-                share.setFolderId(lines.get(0));  // 将folderId的值设置到Share对象中
+            List<String> lines3 = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
+            if (!lines3.isEmpty()) {
+                share.setFolderId(lines3.get(0));  // 将folderId的值设置到Share对象中
             } else {
                 share.setFolderId("6411b6c459de9db58ea5439cb7f537bbed4f4f4b");
             }
