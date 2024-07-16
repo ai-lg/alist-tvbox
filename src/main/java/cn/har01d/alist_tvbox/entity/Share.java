@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
-
 import java.util.Objects;
+import java.nio.file.*;
+import java.io.IOException;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +30,17 @@ public class Share {
     private String cookie;
     private Integer type;
 
+    public Share() {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
+            if (!lines.isEmpty()) {
+                folderId = lines.get(0);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
