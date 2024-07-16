@@ -387,9 +387,19 @@ public class ShareService {
             for (Share share : list) {
                 try {
                     if (share.getType() == null || share.getType() == 0) {
-                        String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'AliyundriveShare2Open',30,'work','{\"RefreshToken\":\"%s\",\"RefreshTokenOpen\":\"%s\",\"TempTransferFolderID\":\"root\",\"share_id\":\"%s\",\"share_pwd\":\"%s\",\"root_folder_id\":\"%s\",\"order_by\":\"name\",\"order_direction\":\"ASC\",\"oauth_token_url\":\"\",\"client_id\":\"\",\"client_secret\":\"\"}','','2023-06-15 12:00:00+00:00',0,'name','ASC','',0,'302_redirect','');";
-                        int count = Utils.executeUpdate(String.format(sql, share.getId(), getMountPath(share), account1.getRefreshToken(), account1.getOpenToken(), share.getShareId(), share.getPassword(), share.getFolderId()));
-                        log.info("insert Share {} {}: {}, result: {}", share.getId(), share.getShareId(), getMountPath(share), count);
+                        log.info("share.getType() = " + share.getType());  // 输出share.getType()的值
+                        List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
+                        log.info("lines = " + lines);  // 输出lines的值
+                        String folderId = "";  // 默认值
+                        if (!lines.isEmpty()) {
+                            folderId = lines.get(0);
+                        }
+                        log.info("folderId = " + folderId);  // 输出folderId的值
+                        String driverType = Files.exists(Paths.get("/data/ali2115.txt")) ? "AliyundriveShare2Pan115" : "AliyundriveShare2Open";
+                        log.info("driverType = " + driverType);  // 输出driverType的值
+                        String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'%s',30,'work','{\"RefreshToken\":\"\",\"RefreshTokenOpen\":\"\",\"TempTransferFolderID\":\"%s\",\"share_id\":\"%s\",\"share_pwd\":\"%s\",\"root_folder_id\":\"%s\",\"order_by\":\"name\",\"order_direction\":\"ASC\",\"oauth_token_url\":\"\",\"client_id\":\"\",\"client_secret\":\"\"}','','2023-06-15 12:00:00+00:00',1,'name','ASC','',0,'302_redirect','',0);";
+                        result = Utils.executeUpdate(String.format(sql, share.getId(), getMountPath(share), driverType, folderId, share.getShareId(), share.getPassword(), share.getFolderId()));
+                        log.info("insert Share {} {}: {}, driverType: {}, folderId: {}, result: {}", share.getId(), share.getShareId(), getMountPath(share), driverType, folderId, result);
                     } else if (share.getType() == 1) {
                         String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'PikPakShare',30,'work','{\"root_folder_id\":\"%s\",\"username\":\"%s\",\"password\":\"%s\",\"share_id\":\"%s\",\"share_pwd\":\"%s\"}','','2023-06-15 12:00:00+00:00',0,'name','ASC','',0,'302_redirect','');";
                         int count = Utils.executeUpdate(String.format(sql, share.getId(), getMountPath(share), share.getFolderId(), account2.getUsername(), account2.getPassword(), share.getShareId(), share.getPassword()));
