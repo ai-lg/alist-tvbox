@@ -438,13 +438,11 @@ public class ShareService {
         try {
             log.info("update storage driver type");
             Path path = Paths.get("/data/ali2115.txt");
-            String driverType;
             if (Files.exists(path)) {
-                driverType = "AliyundriveShare2Pan115";
+                Utils.executeUpdate("update x_storages set driver = 'AliyundriveShare2Pan115' where driver = 'AliyundriveShare'");
             } else {
-                driverType = "AliyundriveShare2Open";
-            }
-            Utils.executeUpdate("update x_storages set driver = 'AliyundriveShare2Open' where driver = 'AliyundriveShare'");
+                Utils.executeUpdate("update x_storages set driver = 'AliyundriveShare2Open' where driver = 'AliyundriveShare'");
+            } 
         } catch (Exception e) {
             throw new BadRequestException(e);
         }
@@ -599,8 +597,15 @@ public class ShareService {
 
             int result = 0;
             if (share.getType() == null || share.getType() == 0) {
-                String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'AliyundriveShare2Open',30,'work','{\"RefreshToken\":\"\",\"RefreshTokenOpen\":\"\",\"TempTransferFolderID\":\"root\",\"share_id\":\"%s\",\"share_pwd\":\"%s\",\"root_folder_id\":\"%s\",\"order_by\":\"name\",\"order_direction\":\"ASC\",\"oauth_token_url\":\"\",\"client_id\":\"\",\"client_secret\":\"\"}','','2023-06-15 12:00:00+00:00',1,'name','ASC','',0,'302_redirect','',0);";
-                result = Utils.executeUpdate(String.format(sql, share.getId(), getMountPath(share), share.getShareId(), share.getPassword(), share.getFolderId()));
+                try {
+                    List<String> lines = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
+                    String folderId = "";  // 默认值
+                    if (!lines.isEmpty()) {
+                        folderId = lines.get(0);
+                    }
+                    String driverType = Files.exists(Paths.get("/data/ali2115.txt")) ? "AliyundriveShare2Pan115" : "AliyundriveShare2Open";
+                    String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'%s',30,'work','{\"RefreshToken\":\"\",\"RefreshTokenOpen\":\"\",\"TempTransferFolderID\":\"%s\",\"share_id\":\"%s\",\"share_pwd\":\"%s\",\"root_folder_id\":\"%s\",\"order_by\":\"name\",\"order_direction\":\"ASC\",\"oauth_token_url\":\"\",\"client_id\":\"\",\"client_secret\":\"\"}','','2023-06-15 12:00:00+00:00',1,'name','ASC','',0,'302_redirect','',0);";
+                    result = Utils.executeUpdate(String.format(sql, share.getId(), getMountPath(share), driverType, folderId, share.getShareId(), share.getPassword(), share.getFolderId()));
             } else if (share.getType() == 1) {
                 PikPakAccount account = pikPakAccountRepository.getFirstByMasterTrue().orElseThrow(BadRequestException::new);
                 String sql = "INSERT INTO x_storages VALUES(%d,'%s',0,'PikPakShare',30,'work','{\"root_folder_id\":\"%s\",\"username\":\"%s\",\"password\":\"%s\",\"share_id\":\"%s\",\"share_pwd\":\"%s\"}','','2023-06-15 12:00:00+00:00',1,'name','ASC','',0,'302_redirect','',0);";
@@ -798,12 +803,7 @@ public class ShareService {
             share.setId(7000);
             share.setShareId("cdqCsAWD9wC");
             share.setPassword("6666");
-            List<String> lines1 = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines1.isEmpty()) {
-                share.setFolderId(lines1.get(0));  // 将folderId的值设置到Share对象中
-            } else {
-                share.setFolderId("635151fc53641440ad95492c8174c57584c56f68");
-            }
+            share.setFolderId("635151fc53641440ad95492c8174c57584c56f68");
             share.setPath("/\uD83C\uDE34我的阿里分享/Tacit0924");
             shares.add(shareRepository.save(share));
         } catch (Exception e) {
@@ -815,12 +815,7 @@ public class ShareService {
             share.setType(0);
             share.setId(7001);
             share.setShareId("mxAfB6eRgY4");
-            List<String> lines2 = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines2.isEmpty()) {
-                share.setFolderId(lines2.get(0));  // 将folderId的值设置到Share对象中
-            } else {
-                share.setFolderId("63833bb670c164d4eeb14aa09c62ee770d9112ba");
-            }
+            share.setFolderId("63833bb670c164d4eeb14aa09c62ee770d9112ba");
             share.setPath("/\uD83C\uDE34我的阿里分享/近期更新");
             shares.add(shareRepository.save(share));
         } catch (Exception e) {
@@ -832,12 +827,7 @@ public class ShareService {
             share.setType(0);
             share.setId(7002);
             share.setShareId("4ydLxf7VgH7");
-            List<String> lines3 = Files.readAllLines(Paths.get("/data/temp_transfer_folder_id.txt"));
-            if (!lines3.isEmpty()) {
-                share.setFolderId(lines3.get(0));  // 将folderId的值设置到Share对象中
-            } else {
-                share.setFolderId("6411b6c459de9db58ea5439cb7f537bbed4f4f4b");
-            }
+            share.setFolderId("6411b6c459de9db58ea5439cb7f537bbed4f4f4b");
             share.setPath("/\uD83C\uDE34我的阿里分享/每日更新");
             shares.add(shareRepository.save(share));
         } catch (Exception e) {
