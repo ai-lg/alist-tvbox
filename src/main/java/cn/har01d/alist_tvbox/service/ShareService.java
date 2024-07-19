@@ -128,6 +128,7 @@ public class ShareService {
         loadAListAlias();
         loadSites();
         pikPakService.loadPikPak();
+        load115();
         configFileService.writeFiles();
         readTvTxt();
 
@@ -136,6 +137,49 @@ public class ShareService {
         }
     }
 
+    private void load115() {
+        Path file1 = Paths.get("/data/temp_transfer_folder_id.txt");
+        if (Files.exists(file1)) {
+            try {
+                string tempFolderId = Files.readString(file1).trim();
+                log.info("temp_transfer_folder_id: {}", tempFolderId);
+                settingRepository.save(new Setting(TEMP_FOLDER_ID, tempFolderId));
+                log.info("update temp_transfer_folder_id");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.TempTransferFolderID', "\"" + tempFolderId + "\"") where driver = 'AliyundriveShare2Open'");
+            } catch (Exception e) {
+                throw new BadRequestException(e);
+            } 
+        } else {
+            log.warn("temp_transfer_folder_id.txt转存文件夹不存在，请在阿里云盘手动创建并命名为 xiaoya-tvbox-temp ");
+        }
+        Path file = Paths.get("/data/ali2115.txt");
+        if (Files.exists(file)) {
+            try {
+                List<String> lines = Files.readAllLines(file);
+                if (lines.size() < 4) {
+                    log.warn("ali2115.txt文件内容不完整，请检查文件");
+                    return;
+                }
+                String purgeAliTemp = lines.get(0).split("=")[1];
+                String cookie = lines.get(1).split("=")[1];
+                cookie = cookie.substring(1, cookie.length() - 1);
+                String purgePan115Temp = lines.get(2).split("=")[1];
+                String dirId = lines.get(3).split("=")[1];
+                // String user_token = Files.readString(Paths.get("/data/mytoken.txt")).trim();
+        
+                log.info("update storage driver type");
+                Utils.executeUpdate("update x_storages set driver = 'AliyundriveShare2Pan115' where driver = 'AliyundriveShare2Open'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.purge_ali_temp', "\"" + purgeAliTemp + "\"") where driver = 'AliyundriveShare2Pan115'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.cookie', "\"" + cookie + "\"") where driver = 'AliyundriveShare2Pan115'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.purge_pan115_temp', "\"" + purgePan115Temp + "\"") where driver = 'AliyundriveShare2Pan115'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.dir_id', "\"" + dirId + "\"") where driver = 'AliyundriveShare2Pan115'");
+                // Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.refresh_token', "\"" + user_token + "\"") where driver = 'AliyundriveShare2Pan115'");
+            } catch (Exception e) {
+                throw new BadRequestException(e);
+            }
+        } 
+    }      
+        
     public void loadAListAlias() {
         List<AListAlias> list = aliasRepository.findAll();
         if (list.isEmpty()) {
