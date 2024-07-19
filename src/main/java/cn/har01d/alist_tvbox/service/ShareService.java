@@ -141,7 +141,7 @@ public class ShareService {
         Path file1 = Paths.get("/data/temp_transfer_folder_id.txt");
         if (Files.exists(file1)) {
             try {
-                string tempFolderId = Files.readString(file1).trim();
+                String tempFolderId = Files.readString(file1).trim();
                 log.info("temp_transfer_folder_id: {}", tempFolderId);
                 settingRepository.save(new Setting(TEMP_FOLDER_ID, tempFolderId));
                 log.info("update temp_transfer_folder_id");
