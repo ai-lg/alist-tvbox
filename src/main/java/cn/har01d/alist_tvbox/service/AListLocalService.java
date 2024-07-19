@@ -103,9 +103,9 @@ public class AListLocalService {
             builder.redirectError(ProcessBuilder.Redirect.appendTo(outFile));
             boolean debug = settingRepository.findById("alist_debug").map(Setting::getValue).orElse("").equals("true");
             if (debug) {
-                builder.command("/opt/alist/alist", "server", "--no-prefix", "--data", "/opt/alist/data/data.db", "--debug");
+                builder.command("/opt/alist/alist", "server", "--no-prefix", "--data", "/opt/alist/data", "--debug");
             } else {
-                builder.command("/opt/alist/alist", "server", "--no-prefix", "--data", "/opt/alist/data/data.db");
+                builder.command("/opt/alist/alist", "server", "--no-prefix", "--data", "/opt/alist/data");
             }
             builder.directory(new File("/opt/alist"));
             Process process = builder.start();
