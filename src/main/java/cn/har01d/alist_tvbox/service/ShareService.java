@@ -170,7 +170,7 @@ public class ShareService {
                 log.info("update storage driver type");
                 Utils.executeUpdate("update x_storages set driver = 'AliyundriveShare2Pan115' where driver = 'AliyundriveShare2Open'");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.purge_ali_temp', '" + purgeAliTemp + "') where driver = 'AliyundriveShare2Pan115'");
-                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.cookie', "\\\"" + cookie + "\\\"") where driver = 'AliyundriveShare2Pan115'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.cookie', \" + cookie + \") where driver = 'AliyundriveShare2Pan115'");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.purge_pan115_temp', '" + purgePan115Temp + '") where driver = 'AliyundriveShare2Pan115'");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.dir_id', '" + dirId + '") where driver = 'AliyundriveShare2Pan115'");
                 // Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.refresh_token', "\"" + user_token + "\"") where driver = 'AliyundriveShare2Pan115'");
