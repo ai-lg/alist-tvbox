@@ -78,16 +78,6 @@ jobs:
           echo "GB.$(date +%y%m%d.%H%M)" > data/version
           cp data/version data/app_version
           cat data/version
-      - name: Build docker and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile-xiaoya
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/xiaoya-tvbox:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       - name: Build host mode docker and push
         uses: docker/build-push-action@v4
         with:
@@ -95,29 +85,6 @@ jobs:
           file: Dockerfile-host
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/xiaoya-tvbox:hostmode
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      - name: Build standalone docker and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alist-tvbox:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      - name: Set date tag
-        id: date
-        run: echo "::set-output name=tag::$(date +'%y%m%d')"
-      - name: Build date_ver docker and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile-host
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alist-tvbox:${{ steps.date.outputs.tag }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/xiaoya-tvbox:t1
           cache-from: type=gha
           cache-to: type=gha,mode=max
