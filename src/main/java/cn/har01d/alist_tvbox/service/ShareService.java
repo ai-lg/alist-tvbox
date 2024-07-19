@@ -161,7 +161,8 @@ public class ShareService {
                     return;
                 }
                 String purgeAliTemp = lines.get(0).split("=")[1];
-                String cookie = lines.get(1).split("=")[1];
+                String[] parts = lines.get(1).split("=",2);
+                String cookie = parts.length > 1 ? parts[1] : null;
                 cookie = cookie.substring(1, cookie.length() - 1);
                 String purgePan115Temp = lines.get(2).split("=")[1];
                 String dirId = lines.get(3).split("=")[1];
