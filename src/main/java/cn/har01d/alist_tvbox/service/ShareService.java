@@ -143,7 +143,7 @@ public class ShareService {
             try {
                 String tempFolderId = Files.readString(file1).trim();
                 log.info("temp_transfer_folder_id: {}", tempFolderId);
-                settingRepository.save(new Setting(TEMP_FOLDER_ID, tempFolderId));
+                // settingRepository.save(new Setting(TEMP_FOLDER_ID, tempFolderId));
                 log.info("update temp_transfer_folder_id");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.TempTransferFolderID', '" + tempFolderId + "') where driver = 'AliyundriveShare2Open'");
             } catch (Exception e) {
