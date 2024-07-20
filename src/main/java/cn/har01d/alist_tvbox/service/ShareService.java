@@ -145,29 +145,9 @@ public class ShareService {
         if (Files.exists(file1)) {
             try {
                 String tempFolderId = Files.readString(file1).trim();
-                Setting setting = settingRepository.get(OPEN_TOKEN_URL);
-                if (setting != null) {
-                    String openTokenUrl = setting.getValue();
-                } else {
-                    String openTokenUrl = "https://api.xhofe.top/alist/ali_open/token";
-                }
-
-                Setting clientIdSetting = settingRepository.get("open_api_client_id");
-                String clientId;
-                if (clientIdSetting != null) {
-                    clientId = clientIdSetting.getValue();
-                } else {
-                    clientId = "";
-                }
-
-                Setting clientSecretSetting = settingRepository.get("open_api_client_secret");
-                String clientSecret;
-                if (clientSecretSetting != null) {
-                    clientSecret = clientSecretSetting.getValue();
-                } else {
-                    clientSecret = "";
-                }
-
+                String openTokenUrl = settingRepository.findById(OPEN_TOKEN_URL).map(Setting::getValue).orElse("https://api.xhofe.top/alist/ali_open/token");
+                String clientId = settingRepository.findById("open_api_client_id").map(Setting::getValue).orElse("");
+                String clientSecret = settingRepository.findById("open_api_client_secret").map(Setting::getValue).orElse("");
 
                 log.info("temp_transfer_folder_id: {}", tempFolderId);
                 // settingRepository.save(new Setting(TEMP_FOLDER_ID, tempFolderId));
