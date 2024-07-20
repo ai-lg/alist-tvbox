@@ -139,7 +139,7 @@ public class ShareService {
 
     private void load115() {
         Path file1 = Paths.get("/data/temp_transfer_folder_id.txt");
-        String user_token = Files.readString(Paths.get("/data/mytoken.txt")).trim();
+        Account account1 = accountRepository.getFirstByMasterTrue().orElse(new Account());
         if (Files.exists(file1)) {
             try {
                 String tempFolderId = Files.readString(file1).trim();
@@ -147,7 +147,10 @@ public class ShareService {
                 // settingRepository.save(new Setting(TEMP_FOLDER_ID, tempFolderId));
                 log.info("update temp_transfer_folder_id");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.TempTransferFolderID', '" + tempFolderId + "') where driver = 'AliyundriveShare2Open'");
-                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.refresh_token', '" + user_token + "') where driver = 'AliyundriveShare2Open'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.RefreshToken', '" + account1.getRefreshToken() + "') where driver = 'AliyundriveShare2Open'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.RefreshTokenOpen', '" + account1.getOpenToken() + "') where driver = 'AliyundriveShare2Open'");
+                // Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.oauth_token_url', '" + account1.getOpenToken() + "') where driver = 'AliyundriveShare2Open'");
+                // Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.refresh_token', '" + user_token + "') where driver = 'AliyundriveShare2Open'");
             } catch (Exception e) {
                 throw new BadRequestException(e);
             } 
