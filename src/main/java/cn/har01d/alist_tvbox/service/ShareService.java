@@ -145,13 +145,39 @@ public class ShareService {
         if (Files.exists(file1)) {
             try {
                 String tempFolderId = Files.readString(file1).trim();
+                Setting setting = settingRepository.get(OPEN_TOKEN_URL);
+                if (setting != null) {
+                    String openTokenUrl = setting.getValue();
+                } else {
+                    String openTokenUrl = "https://api.xhofe.top/alist/ali_open/token";
+                }
+
+                Setting clientIdSetting = settingRepository.get("open_api_client_id");
+                String clientId;
+                if (clientIdSetting != null) {
+                    clientId = clientIdSetting.getValue();
+                } else {
+                    clientId = "";
+                }
+
+                Setting clientSecretSetting = settingRepository.get("open_api_client_secret");
+                String clientSecret;
+                if (clientSecretSetting != null) {
+                    clientSecret = clientSecretSetting.getValue();
+                } else {
+                    clientSecret = "";
+                }
+
+
                 log.info("temp_transfer_folder_id: {}", tempFolderId);
                 // settingRepository.save(new Setting(TEMP_FOLDER_ID, tempFolderId));
                 log.info("update temp_transfer_folder_id");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.TempTransferFolderID', '" + tempFolderId + "') where driver = 'AliyundriveShare2Open'");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.RefreshToken', '" + account1.getRefreshToken() + "') where driver = 'AliyundriveShare2Open'");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.RefreshTokenOpen', '" + account1.getOpenToken() + "') where driver = 'AliyundriveShare2Open'");
-                // Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.oauth_token_url', '" + account1.getOpenToken() + "') where driver = 'AliyundriveShare2Open'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.oauth_token_url', '" + openTokenUrl + "') where driver = 'AliyundriveShare2Open'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.client_id', '" + clientId + "') where driver = 'AliyundriveShare2Open'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.client_secret', '" + clientSecret + "') where driver = 'AliyundriveShare2Open'");
                 // Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.refresh_token', '" + user_token + "') where driver = 'AliyundriveShare2Open'");
             } catch (Exception e) {
                 throw new BadRequestException(e);
