@@ -118,6 +118,6 @@ jobs:
           file: Dockerfile-host
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alist-tvbox:${{ steps.date.outputs.tag }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/xiaoya-tvbox:${{ steps.date.outputs.tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
