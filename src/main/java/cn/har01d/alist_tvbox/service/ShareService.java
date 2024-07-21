@@ -158,7 +158,7 @@ public class ShareService {
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.oauth_token_url', '" + openTokenUrl + "') where driver = 'AliyundriveShare2Open'");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.client_id', '" + clientId + "') where driver = 'AliyundriveShare2Open'");
                 Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.client_secret', '" + clientSecret + "') where driver = 'AliyundriveShare2Open'");
-                // Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.refresh_token', '" + user_token + "') where driver = 'AliyundriveShare2Open'");
+                Utils.executeUpdate("update x_storages set addition = json_set(addition, '$.refresh_token', '" + account1.getRefreshToken() + "') where driver = 'AliyundriveShare2Open'");
             } catch (Exception e) {
                 throw new BadRequestException(e);
             } 
