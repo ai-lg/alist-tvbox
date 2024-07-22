@@ -799,7 +799,7 @@ public class ShareService {
 
     public Share update(Integer id, Share share) {
         aListLocalService.AListStatus();
-        (share);
+        validate(share);
         parseShare(share);
         Account account1 = accountRepository.getFirstByMasterTrue().orElse(new Account());
 
