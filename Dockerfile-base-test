@@ -1,0 +1,25 @@
+ARG TAG=test
+
+FROM ailg666/java:17 as corretto-jdk
+
+FROM ailg666/alist:${TAG}
+
+LABEL MAINTAINER="ailg"
+
+ENV JAVA_HOME=/jre
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+COPY data/update.sql /
+COPY data/countries.json /
+
+COPY --from=corretto-jdk /jre $JAVA_HOME
+
+VOLUME /opt/atv/data/
+
+WORKDIR /opt/atv/
+
+COPY index.sh /
+
+COPY target/dependencies/ ./
+COPY target/snapshot-dependencies/ ./
+COPY target/spring-boot-loader/ ./
