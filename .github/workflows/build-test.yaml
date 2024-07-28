@@ -2,9 +2,6 @@ name: 'release docker test'
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      -  ailg-fix_tempid
     paths-ignore:
       - 'build*'
       - 'release*'
