@@ -1,10 +1,6 @@
 name: 'release docker test'
 
 on:
-  workflow_run:
-    workflows: [ "release base test" ]
-    types:
-      - completed
   workflow_dispatch:
   push:
     branches:
