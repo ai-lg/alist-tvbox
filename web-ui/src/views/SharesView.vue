@@ -372,23 +372,23 @@ const fullPath = (share: any) => {
     return path
   }
   if (share.type == 1) {
-    return '/\uD83D\uDD78\uFE0F我的PikPak分享/' + path
+    return '\uD83C\uDF4E我的PikPak分享/' + path
   } else if (share.type == 2) {
-    return '/\uD83C\uDF1E我的夸克网盘/' + path
+    return '/\uD83C\uDF52我的夸克网盘/' + path
   } else if (share.type == 6) {
-    return '/\uD83C\uDF1E我的UC网盘/' + path
+    return '/\uD83C\uDF4D我的UC网盘/' + path
   } else if (share.type == 5) {
-    return '/我的夸克分享/' + path
+    return '/\uD83C\uDF4A我的夸克分享/' + path
   } else if (share.type == 7) {
-    return '/我的UC分享/' + path
+    return '/\uD83C\uDF53我的UC分享/' + path
   } else if (share.type == 8) {
-    return '/我的115分享/' + path
+    return '/\uD83C\uDF4C我的115分享/' + path
   } else if (share.type == 3) {
-    return '/115网盘/' + path
+    return '/\uD83E\uDD5D115网盘/' + path
   } else if (share.type == 4) {
     return path
   } else {
-    return '/\uD83C\uDE34我的阿里分享/' + path
+    return '/\uD83C\uDF51我的阿里分享/' + path
   }
 }
 
