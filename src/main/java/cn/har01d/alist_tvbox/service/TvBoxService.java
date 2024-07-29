@@ -337,7 +337,7 @@ public class TvBoxService {
 
         if (shareRepository.countByType(2) > 0) {
             Category category = new Category();
-            category.setType_id("1$/\uD83C\uDF1E我的夸克网盘$1");
+            category.setType_id("1$/\uD83C\uDF52我的夸克网盘$1");
             category.setType_name("夸克网盘");
             result.getCategories().add(category);
             result.getFilters().put(category.getType_id(), List.of(new Filter("sort", "排序", filters)));
@@ -361,7 +361,7 @@ public class TvBoxService {
 
         if (pp > 0) {
             Category category = new Category();
-            category.setType_id("1$/\uD83D\uDD78️我的PikPak分享$1");
+            category.setType_id("1$/\uD83C\uDF4E我的PikPak分享$1");
             category.setType_name("PikPak");
             result.getCategories().add(category);
             result.getFilters().put(category.getType_id(), List.of(new Filter("sort", "排序", filters)));
