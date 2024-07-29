@@ -320,7 +320,7 @@ public class TvBoxService {
     private void addMyFavorite(CategoryList result) {
         if (accountRepository.findAll().stream().anyMatch(Account::isShowMyAli)) {
             Category category = new Category();
-            category.setType_id("1$/\uD83D\uDCC0我的阿里云盘$1");
+            category.setType_id("1$/\uD83C\uDF49我的阿里云盘$1");
             category.setType_name("我的云盘");
             result.getCategories().add(category);
             result.getFilters().put(category.getType_id(), List.of(new Filter("sort", "排序", filters)));
@@ -484,7 +484,7 @@ public class TvBoxService {
             return "\uD83C\uDD7F\uFE0F  ";
         }
         if (path.contains("阿里云盘")) {
-            return "\uD83D\uDCC0  ";
+            return "\uD83C\uDF49  ";
         }
         if (path.contains("夸克网盘")) {
             return "\uD83C\uDF1E  ";
