@@ -497,19 +497,19 @@ public class ShareService {
         if (share.getType() == null || share.getType() == 0) {
             return "/\uD83C\uDE34我的阿里分享/" + path;
         } else if (share.getType() == 1) {
-            return "/\uD83D\uDD78️我的PikPak分享/" + path;
+            return "/\uD83C\uDF4E我的PikPak分享/" + path;
         } else if (share.getType() == 2) {
-            return "/\uD83C\uDF1E我的夸克网盘/" + path;
+            return "/\uD83C\uDF52我的夸克网盘/" + path;
         } else if (share.getType() == 6) {
-            return "/\uD83C\uDF1E我的UC网盘/" + path;
+            return "/\uD83C\uDF4D我的UC网盘/" + path;
         } else if (share.getType() == 3) {
-            return "/115网盘/" + path;
+            return "/\uD83E\uDD5D115网盘/" + path;
         } else if (share.getType() == 5) {
-            return "/我的夸克分享/" + path;
+            return "/\uD83C\uDF4A我的夸克分享/" + path;
         } else if (share.getType() == 7) {
-            return "/我的UC分享/" + path;
+            return "/\uD83C\uDF53我的UC分享/" + path;
         } else if (share.getType() == 8) {
-            return "/我的115分享/" + path;
+            return "/\uD83C\uDF4C我的115分享/" + path;
         }
         return path;
     }
