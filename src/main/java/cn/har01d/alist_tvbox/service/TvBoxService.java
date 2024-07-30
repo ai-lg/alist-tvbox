@@ -329,7 +329,7 @@ public class TvBoxService {
         int pp = shareRepository.countByType(1);
         if (shareRepository.count() > pp) {
             Category category = new Category();
-            category.setType_id("1$/\uD83C\uDE34我的阿里分享$1");
+            category.setType_id("1$/\uD83C\uDF51我的阿里分享$1");
             category.setType_name("阿里分享");
             result.getCategories().add(category);
             result.getFilters().put(category.getType_id(), List.of(new Filter("sort", "排序", filters)));
@@ -345,7 +345,7 @@ public class TvBoxService {
 
         if (shareRepository.countByType(5) > 0) {
             Category category = new Category();
-            category.setType_id("1$/我的夸克分享$1");
+            category.setType_id("1$/\uD83C\uDF4A我的夸克分享$1");
             category.setType_name("夸克分享");
             result.getCategories().add(category);
             result.getFilters().put(category.getType_id(), List.of(new Filter("sort", "排序", filters)));
