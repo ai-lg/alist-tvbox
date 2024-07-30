@@ -165,7 +165,7 @@ public class ShareService {
                 continue;
             }
             try {
-                String sql = "INSERT INTO x_storages VALUES(%d,'/\uD83C\uDF8E我的套娃/%s',0,'AList V%d',0,'work','{\"root_folder_path\":\"%s\",\"url\":\"%s\",\"meta_password\":\"%s\",\"token\":\"%s\",\"username\":\"\",\"password\":\"\"}','','2023-06-20 12:00:00+00:00',0,'name','asc','front',0,'302_redirect','');";
+                String sql = "INSERT INTO x_storages VALUES(%d,'/\uD83E\uDD65我的套娃/%s',0,'AList V%d',0,'work','{\"root_folder_path\":\"%s\",\"url\":\"%s\",\"meta_password\":\"%s\",\"token\":\"%s\",\"username\":\"\",\"password\":\"\"}','','2023-06-20 12:00:00+00:00',0,'name','asc','front',0,'302_redirect','');";
                 int count = Utils.executeUpdate(String.format(sql, 8000 + site.getId(), site.getName(), site.getVersion(), getFolder(site), site.getUrl(), site.getPassword(), site.getToken()));
                 log.info("insert Site {}:{} {}, result: {}", site.getId(), site.getName(), site.getUrl(), count);
             } catch (Exception e) {
@@ -495,7 +495,7 @@ public class ShareService {
             return path;
         }
         if (share.getType() == null || share.getType() == 0) {
-            return "/\uD83C\uDE34我的阿里分享/" + path;
+            return "/\uD83C\uDF51我的阿里分享/" + path;
         } else if (share.getType() == 1) {
             return "/\uD83C\uDF4E我的PikPak分享/" + path;
         } else if (share.getType() == 2) {
@@ -520,7 +520,7 @@ public class ShareService {
             log.info("read tv from file");
             try {
                 StringBuilder sb = parseTvFile(file);
-                Utils.executeUpdate("INSERT INTO x_storages VALUES(2050,'/\uD83C\uDDF9\uD83C\uDDFB直播/我的自选',0,'UrlTree',0,'work','{\"url_structure\":\"" + sb + "\",\"head_size\":false}','','2023-06-20 12:00:00+00:00',0,'name','','',0,'302_redirect','');");
+                Utils.executeUpdate("INSERT INTO x_storages VALUES(2050,'/\uD83C\uDF47直播/我的自选',0,'UrlTree',0,'work','{\"url_structure\":\"" + sb + "\",\"head_size\":false}','','2023-06-20 12:00:00+00:00',0,'name','','',0,'302_redirect','');");
             } catch (Exception e) {
                 log.warn("", e);
             }
@@ -838,7 +838,7 @@ public class ShareService {
             share.setShareId("cdqCsAWD9wC");
             share.setPassword("6666");
             share.setFolderId("635151fc53641440ad95492c8174c57584c56f68");
-            share.setPath("/\uD83C\uDE34我的阿里分享/Tacit0924");
+            share.setPath("/\uD83C\uDF51我的阿里分享/Tacit0924");
             shares.add(shareRepository.save(share));
         } catch (Exception e) {
             log.warn("", e);
@@ -850,7 +850,7 @@ public class ShareService {
             share.setId(7001);
             share.setShareId("mxAfB6eRgY4");
             share.setFolderId("63833bb670c164d4eeb14aa09c62ee770d9112ba");
-            share.setPath("/\uD83C\uDE34我的阿里分享/近期更新");
+            share.setPath("/\uD83C\uDF51我的阿里分享/近期更新");
             shares.add(shareRepository.save(share));
         } catch (Exception e) {
             log.warn("", e);
@@ -862,7 +862,7 @@ public class ShareService {
             share.setId(7002);
             share.setShareId("4ydLxf7VgH7");
             share.setFolderId("6411b6c459de9db58ea5439cb7f537bbed4f4f4b");
-            share.setPath("/\uD83C\uDE34我的阿里分享/每日更新");
+            share.setPath("/\uD83C\uDF51我的阿里分享/每日更新");
             shares.add(shareRepository.save(share));
         } catch (Exception e) {
             log.warn("", e);
